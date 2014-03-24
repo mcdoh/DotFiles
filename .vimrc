@@ -221,7 +221,7 @@ Bundle       'tomtom/tcomment_vim.git'
 Bundle 'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
 Bundle  'altercation/vim-colors-solarized.git'
 Bundle        'tpope/vim-fugitive'
-Bundle        'tpope/vim-surround'
+" Bundle        'tpope/vim-surround'
 Bundle     'pangloss/vim-javascript.git'
 Bundle   'itspriddle/vim-jquery.git'
 Bundle       'kchmck/vim-coffee-script.git'
@@ -360,7 +360,7 @@ syntax on
 " -----------------------
 " Various color schemes, only use one at a time:
 set t_Co=256		" tell vim that the terminal can handle 256 colors
-colorscheme jellybeans
+colorscheme solarized
 
 
 " Switch syntax highlighting on, when the terminal has colors
