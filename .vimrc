@@ -201,33 +201,34 @@ set nocompatible   " Use Vim settings, rather then Vi settings.
 " --------------- Vundle Settings ----------------
 filetype off                           " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " ------- bundles -------
 "
 " --- github bundles ----
-Bundle     'nanotech/jellybeans.vim.git'
-Bundle       'tsaleh/vim-matchit'
-Bundle   'scrooloose/nerdtree'
-Bundle     'msanders/snipmate.vim.git'
-" Bundle    'ervandew/supertab.git'
-" Bundle  'scrooloose/syntastic.git'
-Bundle       'tomtom/tcomment_vim.git'
-Bundle 'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
-Bundle  'altercation/vim-colors-solarized.git'
-Bundle        'tpope/vim-fugitive'
-" Bundle        'tpope/vim-surround'
-Bundle     'pangloss/vim-javascript.git'
-Bundle   'itspriddle/vim-jquery.git'
-Bundle       'kchmck/vim-coffee-script.git'
+Plugin     'nanotech/jellybeans.vim.git'
+Plugin       'edsono/vim-matchit'
+Plugin   'scrooloose/nerdtree'
+Plugin     'msanders/snipmate.vim.git'
+" Plugin    'ervandew/supertab.git'
+" Plugin  'scrooloose/syntastic.git'
+Plugin       'tomtom/tcomment_vim.git'
+Plugin 'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
+Plugin  'altercation/vim-colors-solarized.git'
+Plugin        'tpope/vim-fugitive'
+" Plugin        'tpope/vim-surround'
+Plugin     'pangloss/vim-javascript.git'
+Plugin   'itspriddle/vim-jquery.git'
+Plugin       'kchmck/vim-coffee-script.git'
 "
 " ----- end bundles -----
 
+call vundle#end()
 filetype plugin indent on              " required! 
 " ------------- End Vundle Settings --------------
 
