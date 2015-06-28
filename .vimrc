@@ -211,20 +211,23 @@ Plugin 'gmarik/Vundle.vim'
 " ------- bundles -------
 "
 " --- github bundles ----
-Plugin     'nanotech/jellybeans.vim.git'
-Plugin       'edsono/vim-matchit'
-Plugin   'scrooloose/nerdtree'
-Plugin     'msanders/snipmate.vim.git'
+Plugin      'nanotech/jellybeans.vim.git'
+Plugin    'scrooloose/nerdtree'
+Plugin      'msanders/snipmate.vim.git'
+Plugin        'tomtom/tcomment_vim.git'
+Plugin  'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
+Plugin        'kchmck/vim-coffee-script.git'
+Plugin   'altercation/vim-colors-solarized.git'
+Plugin         'tpope/vim-fugitive'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin      'pangloss/vim-javascript.git'
+Plugin    'itspriddle/vim-jquery.git'
+Plugin        'edsono/vim-matchit'
+Plugin         'tpope/vim-surround'
+
 " Plugin    'ervandew/supertab.git'
 " Plugin  'scrooloose/syntastic.git'
-Plugin       'tomtom/tcomment_vim.git'
-Plugin 'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
-Plugin  'altercation/vim-colors-solarized.git'
-Plugin        'tpope/vim-fugitive'
-" Plugin        'tpope/vim-surround'
-Plugin     'pangloss/vim-javascript.git'
-Plugin   'itspriddle/vim-jquery.git'
-Plugin       'kchmck/vim-coffee-script.git'
+"
 "
 " ----- end bundles -----
 
@@ -238,6 +241,14 @@ nnoremap gp `[v`]
 " logical up/down movement on wrapped lines
 noremap j gj
 noremap k gk
+
+" search results to middle of screen
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 set diffopt+=iwhite " ignore whitespace in vimdiff
 
@@ -279,7 +290,7 @@ set showcmd         " Show (partial) command in status line.
 
 set number          " Show line numbers.
 
-" set relativenumber  " Show line numbers relative to current (vim 7.3 or higher).
+set relativenumber  " Show line numbers relative to current (vim 7.3 or higher).
 
 set showmatch       " When a bracket is inserted, briefly jump to the matching
                     " one. The jump is only done if the match can be seen on the
@@ -361,7 +372,8 @@ syntax on
 " -----------------------
 " Various color schemes, only use one at a time:
 set t_Co=256		" tell vim that the terminal can handle 256 colors
-colorscheme solarized
+colorscheme jellybeans
+" colorscheme tomorrow-night-eighties
 
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -446,9 +458,9 @@ endif " has("autocmd")
 
 
 
-" -----------------
-" Advanced Settings
-" -----------------
+" ------------------
+" Keyboard Shortcuts
+" ------------------
 
 "" Uncomment below to remap keys for splitting windows
 "" Anywhere you see '<leader>', just type the comma
@@ -458,7 +470,6 @@ endif " has("autocmd")
 ""   CTRL+w {h,l,k,j} - move left, right, up, down
 ""   CTRL+w {H,L,K,J} - move windows left, right, up, down
 "" Note: the standard h,j,k,l directions are used. 
-" let mapleader = "," 
 "" mappings to split window
 "nmap <leader>swh :topleft  vnew<CR>
 "nmap <leader>swl :botright vnew<CR>
@@ -471,6 +482,12 @@ endif " has("autocmd")
 "nmap <leader>sk :leftabove  new<CR>
 "nmap <leader>sj :rightbelow new<CR>
 
+let mapleader = "," 
+
+" show tabs and trailing spaces
+map <leader>l :set list!<CR>
+set lcs=tab:»\ ,trail:▫
+
 "" NERD Tree
 " map NERD Tree toggle to 'Z' (I use :wq)
 map <s-z> :NERDTreeToggle<CR>
@@ -481,6 +498,8 @@ let g:tcommentOptions = {'col': 1}
 " map comment toggle to 'Q'
 map <s-q> gc
 
+" map 'U' to redo ('U' is "undo line", ctrl-r is redo)
+map <s-u> <C-r>
 
 " ----------------------------------------------------------
 " ------------------- End Settings -------------------------
