@@ -214,6 +214,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin      'nanotech/jellybeans.vim.git'
 Plugin    'scrooloose/nerdtree'
 Plugin      'msanders/snipmate.vim.git'
+Plugin       'trusktr/seti.vim'
 Plugin        'tomtom/tcomment_vim.git'
 Plugin  'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
 Plugin        'kchmck/vim-coffee-script.git'
@@ -224,6 +225,7 @@ Plugin      'pangloss/vim-javascript.git'
 Plugin    'itspriddle/vim-jquery.git'
 Plugin        'edsono/vim-matchit'
 Plugin         'tpope/vim-surround'
+Plugin           'mxw/vim-jsx'
 
 " Plugin    'ervandew/supertab.git'
 " Plugin  'scrooloose/syntastic.git'
@@ -497,6 +499,9 @@ map <s-z> :NERDTreeToggle<CR>
 let g:tcommentOptions = {'col': 1}
 " map comment toggle to 'Q'
 map <s-q> gc
+
+"" enable JSX in .js files (instead of just .jsx)
+let g:jsx_ext_required = 0
 
 " map 'U' to redo ('U' is "undo line", ctrl-r is redo)
 map <s-u> <C-r>
