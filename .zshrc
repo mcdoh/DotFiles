@@ -10,6 +10,8 @@ ZSH_THEME="bira"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias iOS="open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app"
+alias server="python -m SimpleHTTPServer"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -42,6 +44,8 @@ ZSH_THEME="bira"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 HIST_STAMPS="yyyy-mm-dd"
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -59,12 +63,22 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# required for 'go get'
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+export NODE_PATH="/usr/local/lib/node_modules"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # for android, might not be necessary
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 export BYOBU_PREFIX=$(brew --prefix)
+
+export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+
+export LESSOPEN='|~/.lessfilter %s'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
