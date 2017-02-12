@@ -10,7 +10,7 @@ ZSH_THEME="bira"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias iOS="open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app"
+alias iOS="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 alias server="python -m SimpleHTTPServer"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -53,7 +53,7 @@ SAVEHIST=1000000
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git jsontools mvn)
+plugins=(git ssh-agent jsontools mvn)
 
 source $ZSH/oh-my-zsh.sh
 
