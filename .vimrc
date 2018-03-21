@@ -211,10 +211,11 @@ Plugin 'gmarik/Vundle.vim'
 " ------- bundles -------
 "
 " --- github bundles ----
+Plugin   'elixir-lang/vim-elixir'
 Plugin      'nanotech/jellybeans.vim.git'
 Plugin    'scrooloose/nerdtree'
-Plugin      'msanders/snipmate.vim.git'
 Plugin       'trusktr/seti.vim'
+Plugin      'ervandew/supertab'
 Plugin        'tomtom/tcomment_vim.git'
 Plugin  'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
 Plugin        'kchmck/vim-coffee-script.git'
@@ -227,7 +228,7 @@ Plugin        'edsono/vim-matchit'
 Plugin         'tpope/vim-surround'
 Plugin           'mxw/vim-jsx'
 
-" Plugin    'ervandew/supertab.git'
+" Plugin      'garbas/vim-snipmate'
 " Plugin  'scrooloose/syntastic.git'
 "
 "
@@ -362,6 +363,9 @@ set autoread        " Set to auto-read when a file is changed from outside
  
 filetype plugin indent on
 syntax on
+
+" to improve performance limit syntax highlighting to 200 chars per line
+set synmaxcol=512
 
 " To save your sessions, uncomment the following three lines.
 " set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
@@ -505,6 +509,18 @@ let g:jsx_ext_required = 0
 
 " map 'U' to redo ('U' is "undo line", ctrl-r is redo)
 map <s-u> <C-r>
+
+"" tab completion
+" function! InsertTabWrapper()
+" 	let col = col('.') - 1
+" 	if !col || getline('.')[col - 1] !~ '\k'
+" 		return "\<tab>"
+" 	else
+" 		return "\<c-p>"
+" 	endif
+" endfunction
+" inoremap <expr> <tab> InsertTabWrapper()
+" inoremap <s-tab> <c-n>
 
 " ----------------------------------------------------------
 " ------------------- End Settings -------------------------
