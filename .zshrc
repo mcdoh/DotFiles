@@ -11,7 +11,9 @@ ZSH_THEME="bira"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iOS="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
-alias server="python -m SimpleHTTPServer"
+alias simple-server="python -m SimpleHTTPServer"
+alias diff="colordiff -u"
+alias tree="tree -CF --dirsfirst"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -44,8 +46,8 @@ alias server="python -m SimpleHTTPServer"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 HIST_STAMPS="yyyy-mm-dd"
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -53,7 +55,7 @@ SAVEHIST=1000000
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ssh-agent jsontools mvn)
+plugins=(git ssh-agent jsontools)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -71,14 +73,12 @@ export NODE_PATH="/usr/local/lib/node_modules"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# for android, might not be necessary
-export ANDROID_HOME=/usr/local/opt/android-sdk
-
 export BYOBU_PREFIX=$(brew --prefix)
 
-export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
-
 export LESSOPEN='|~/.lessfilter %s'
+
+# iex shell history
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
