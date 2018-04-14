@@ -365,7 +365,7 @@ filetype plugin indent on
 syntax on
 
 " to improve performance limit syntax highlighting to 200 chars per line
-set synmaxcol=512
+" set synmaxcol=512
 
 " To save your sessions, uncomment the following three lines.
 " set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
@@ -500,7 +500,7 @@ map <s-z> :NERDTreeToggle<CR>
 
 "" TComment
 " insert comment at beginning of line ignoring tab level
-let g:tcommentOptions = {'col': 1}
+let g:tcomment#options = {'col': 1}
 " map comment toggle to 'Q'
 map <s-q> gc
 
