@@ -10,9 +10,11 @@ ZSH_THEME="bira"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias iOS="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 alias simple-server="python -m SimpleHTTPServer"
 alias diff="colordiff -u"
 alias tree="tree -CF --dirsfirst"
+alias vim="vim -p"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -45,8 +47,8 @@ alias tree="tree -CF --dirsfirst"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 HIST_STAMPS="yyyy-mm-dd"
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -72,12 +74,12 @@ export NODE_PATH="/usr/local/lib/node_modules"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export BYOBU_PREFIX=$(brew --prefix)
+
 export LESSOPEN='|~/.lessfilter %s'
 
 # iex shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-# export LC_ALL=en_US.UTF-8
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

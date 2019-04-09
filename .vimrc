@@ -1,249 +1,192 @@
-" ----------------------------------------------------------
-" ---------------------- Header ----------------------------
-" ----------------------------------------------------------
-" Settings file for vim.
-" Compiled from various sources.
-" File should be named ".vimrc" and located in $HOME directory.
-" Last change 2011-02-18.
-" ----------------------------------------------------------
-" -------------------- End Header --------------------------
-" ----------------------------------------------------------
-
-" ----------------------------------------------------------
-" ----------------------- Notes ----------------------------
-" ----------------------------------------------------------
-" For quick reference, some commands are included below.
-" For a great tutorial, just type vimtutor into a terminal window. 
-"
-" ----------------
-" Misc. Commands
-" ----------------
-" Esc        exit current mode
-" u          undo
-" CTRL+R     redo
-" .          repeat last command at current location
-" ~          Toggle between lowercase and uppercase.
-" :!<CMD>    execute the shell command <CMD>  
-" :1,$!<CMD> pass lines 1 up to end of file ($) to <CMD>, e.g. :1,$!sort
-" 4!!<CMD>   Use <CMD> on the next 4 lines, e.g. 4!!awk '{print "New text",$0}'
-" :set all   see a list of all available options to set
-" >>         indent
-" <<         unindent
-" 5>>        indent the next 5 lines
-"
-" ----------------
-" Search Commands
-" ----------------
-" /my_str              search text for the string "my_str"
-" /my_str1/;/mystr2/   compound search for "my_str1" followed by "my_str2"
-
-" ----------------
-" Basic Commands
-" ----------------
-" i  insert text before the cursor
-" I  insert text at the beginning of the line
-" a  insert (append) text after the cursor
-" A  insert (append) text at the end of the line
-" s  erases the current letter and place you in insert mode. 
-" S  erases the whole line and place you in insert mode.
-" o  creates a newline below the line and put you insert mode
-" O  creates a newline above the line and put you in insert mode.
-" x  delete character under cursor
-" X  delete character before cursor
-" r  replace character under cursor
-" R  Enter replace mode (overwrite everything starting from cursor)
-" y  yank (copy) [use with a movement command]
-" yy yanks an entire line
-" c  change [use with a movement command], delete and enter insert mode 
-" cc delete the current line and enter insert mode
-" d  delete [use with a movement command], store in buffer for pasting
-" dd delete entire line, store in buffer for pasting
-" p  paste contents of buffer
-" *  highlights the current word
-" n  will search forward for highlighted word
-" N  will search backward for highlighted word
-"
-"
-" ----------------
-" movement commands
-" ----------------
-" h  move cursor left
-" j  move cursor down
-" k  move cursor up
-" l  move cursor right
-" ^  Start of line
-" $  End of line
-" w  start of next word
-" W  start of next word, skip funny characters
-" e  end of current word
-" E  end of current word, skip funny characters
-" b  back one word
-" B  back one word, skip funny characters
-" H  top of screen (Header)
-" M  middle of screen
-" L  bottom of screen (Lower)
-" gg begininng of the file
-" G  end of the file
-"
-" ----------------
-" Visual Mode
-" ----------------
-" v enter visual mode (used to select text with cursor)
-" V enter visual line mode (same as visual, but for entire lines)
-" y yank the selected text into the buffer, while in visual mode
-" c cut the selected text into the buffer, while in visual mode
-" p paste buffer after cursor
-" P paste buffer before cursor
-"
-" ----------------
-" vimdiff Commands
-" ----------------
-" At the command line, enter: 
-"     vimdiff file1 file2
-" to compare the differences between to files.
-" For multiple files, see type "man vimdiff" into a terminal.
-"
-" ]c :        - next difference
-" [c :        - previous difference
-" Ctrl+ww     - switch windows
-" do          - diff obtain
-" dp          - diff put
-" zo          - open folded text
-" zc          - close folded text
-" :diffupdate - re-scan the files for differences
-" :qa   quit all open vim windows
-"
-" -----------------------
-" "sed" commands
-" -----------------------
-" :s/xxx/yyy/        Replace xxx with yyy at the first occurence
-" :s/xxx/yyy/g       Replace xxx with yyy first occurrence, whole sentence
-" :s/xxx/yyy/gc      Replace xxx with yyy global with confirm
-" :%s/xxx/yyy/g      Replace xxx with yyy global in the whole file
-" :3,4s/xxx/yyy/g    Replace 'spam' with 'eggs' between lines 3&4
-" :g/^#/d            Delete all lines that begins with #
-" :g/^$/d            Delete all lines that are empty
-" :%s/^\(x\)/y\1z/g  Replace x with xyz
-"
-" -----------------------
-" "awk" commands
-" -----------------------
-" :5,15!awk '{print $1}' | CMD    execute "CMD" on lines 5 through 15
-"
-" -----------------------
-" Check Spelling
-" -----------------------
-" set spell
-"
-" -----------------------
-" Syntax Highlighting
-" -----------------------
-" filetype plugin on
-" syntax on
-"
-" -----------------------
-" File Commands
-" -----------------------
-" :w    write (save) current file
-" :q    quit vim if no changes were made
-" :q!   quit vim without saving changes
-" :wq   write changes and quit
-" :x    write changes and quit (same as wq)
-" :qa   quit all open vim windows
-" :6,9w write only lines 6 through 9
-
-"
-" -----------------------
-" Window commands
-" -----------------------
-" :sp      split the current window horizontally
-" CTRL-ws  split the current window horizontally
-" :vsp     split the current window vertically
-" CTRL-wv  split the current window vertically
-" CTRL-ww  change to next window
-" 
-" -----------------------
-" Bookmarks
-" -----------------------
-" M<letter>   Place a bookmark, referenced by <letter>.
-"             Here, <letter> is a lowercase letter.  
-" `<letter>   Return to a bookmark marked <letter>.
-" .
-
-" ----------------------------------------------------------
-" --------------------- End Notes --------------------------
-" ----------------------------------------------------------
-
-" ----------------------------------------------------------
-" --------------------- Settings ---------------------------
-" ----------------------------------------------------------
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
 endif
 
-set nocompatible   " Use Vim settings, rather then Vi settings.
-                   " This must be first, because it changes
-                   " other options as a side effect.
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+" Avoid side effects when it was already reset.
+if &compatible
+  set nocompatible
+endif
 
-" -------------------- Vundle --------------------
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-"
-" --------------- Vundle Settings ----------------
-filetype off                           " required!
+" When the +eval feature is missing, the set command above will be skipped.
+" Use a trick to reset compatible only when the +eval feature is missing.
+silent! while 0
+  set nocompatible
+silent! endwhile
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                                                    DEFAULT (tweaked)                                           """"""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" let Vundle manage Vundle
-" required! 
-Plugin 'gmarik/Vundle.vim'
+" Allow backspacing over everything in insert mode.
+set backspace=indent,eol,start
 
-" ------- bundles -------
-"
-" --- github bundles ----
-Plugin   'elixir-lang/vim-elixir'
-Plugin      'nanotech/jellybeans.vim.git'
-Plugin     'tmhedberg/matchit'
-Plugin    'scrooloose/nerdtree'
-Plugin       'trusktr/seti.vim'
-Plugin      'ervandew/supertab'
-Plugin        'tomtom/tcomment_vim.git'
-Plugin  'chriskempson/tomorrow-theme.git', {'rtp': 'vim/'}
-Plugin        'kchmck/vim-coffee-script.git'
-Plugin   'altercation/vim-colors-solarized.git'
-Plugin         'tpope/vim-fugitive'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin      'pangloss/vim-javascript.git'
-Plugin    'itspriddle/vim-jquery.git'
-Plugin         'tpope/vim-surround'
-Plugin           'mxw/vim-jsx'
+set history=1000   " keep 1000 lines of command line history
+set ruler          " show the cursor position all the time
+set showcmd        " display incomplete commands
+set wildmenu       " display completion matches in a status line
 
-" Plugin      'garbas/vim-snipmate'
-" Plugin  'scrooloose/syntastic.git'
-"
-"
-" ----- end bundles -----
+set ttimeout        " time out for key codes
+set ttimeoutlen=100 " wait up to 100ms after Esc for special key
 
-call vundle#end()
-filetype plugin indent on              " required! 
-" ------------- End Vundle Settings --------------
+" Show @@@ in the last line if it is truncated.
+set display=truncate
+
+" Show a few lines of context around the cursor.  Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+"set scrolloff=5
+
+" Do incremental searching when it's possible to timeout.
+if has('reltime')
+  set incsearch
+endif
+
+" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
+" confusing.
+set nrformats-=octal
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries.
+if has('win32')
+  set guioptions-=t
+endif
+
+" Don't use Ex mode, use Q for formatting.
+" Revert with ":unmap Q".
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+" Revert with ":iunmap <C-U>".
+inoremap <C-U> <C-G>u<C-U>
+
+" In many terminal emulators the mouse works just fine.  By enabling it you
+" can position the cursor, Visually select and scroll with the mouse.
+if has('mouse')
+  set mouse=a
+endif
+
+" Switch syntax highlighting on when the terminal has colors or when using the
+" GUI (which always has colors).
+if &t_Co > 2 || has("gui_running")
+  " Revert with ":syntax off".
+  syntax on
+
+  " I like highlighting strings inside C comments.
+  " Revert with ":unlet c_comment_strings".
+  let c_comment_strings=1
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  " Revert with ":filetype off".
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that you can revert them with:
+  " ":augroup vimStartup | au! | augroup END"
+  augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid, when inside an event handler
+    " (happens when dropping a file on gvim) and for a commit message (it's
+    " likely a different one than last time).
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+
+  augroup END
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+if has('langmap') && exists('+langremap')
+  " Prevent that the langmap option applies to characters that result from a
+  " mapping.  If set (default), this may break plugins (but it's backward
+  " compatible).
+  set nolangremap
+endif
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file (restore to previous version)
+  if has('persistent_undo')
+    set undofile	" keep an undo file (undo changes after closing)
+  endif
+endif
+
+if &t_Co > 2 || has("gui_running")
+  " Switch on highlighting the last used search pattern.
+  set hlsearch
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                                                     CUSTOM                                                     """"""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let mapleader = " " 
+
+" show tabs and trailing spaces
+map <leader>t :set list!<CR>
+set lcs=tab:»\ ,trail:▫
+
+" swap 'jump to line' and 'jump to line and column'
+noremap ' `
+noremap ` '
 
 " reselect lines that were just pasted
-nnoremap gp `[v`]
+nnoremap <leader>p `[v`]
+
+" reselect lines that were just pasted
+nnoremap <leader>v gv
 
 " logical up/down movement on wrapped lines
 noremap j gj
 noremap k gk
+
+" (half) page up/page down and cursor to middle of screen
+noremap <leader>j <C-D>M
+noremap <leader>k <C-U>M
+noremap <leader>J <C-F>M
+noremap <leader>K <C-B>M
+
+" beginning and end of line
+noremap <leader>h ^
+noremap <leader>l $
 
 " search results to middle of screen
 nnoremap n nzz
@@ -253,276 +196,94 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-set diffopt+=iwhite " ignore whitespace in vimdiff
+" hard tabs, 3-space width
+set shiftwidth=3
+set tabstop=3
 
-set softtabstop=4
-
-set tabstop=4       " Use 4 spaces instead of tabs.
-
-set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
+" Ignore case in search patterns.  
+" For shorthand, use :set ic and :set noic
+set ignorecase
  
-"set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
-                    " Spaces are used in indents with the '>' and '<' commands
-                    " and when 'autoindent' is on. To insert a real tab when
-                    " 'expandtab' is on, use CTRL-V <Tab>.
+" Override the 'ignorecase' option if the search pattern
+" contains upper case characters.
+set smartcase
  
-set smarttab        " When on, a <Tab> in front of a line inserts blanks
-                    " according to 'shiftwidth'. 'tabstop' is used in other
-                    " places. A <BS> will delete a 'shiftwidth' worth of space
-                    " at the start of the line.
+" show line numbers
+set number
 
-" set guifont=monospace\ 13
+" Show line numbers relative to current
+set relativenumber
 
-set title
+set backupdir=~/.vim/backups
+set undodir=~/.vim/.undos
 
-set novisualbell    " turns off visual bell
-
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
-
-set history=1000    " keep 500 lines of command line history
-
-set ruler	    " show the cursor position all the time
-
-set showcmd	    " display incomplete commands
-
-set incsearch	    " do incremental searching
-
-set wrapscan        " When search reaches end of file, go to the beginning.
- 
-set showcmd         " Show (partial) command in status line.
-
-set number          " Show line numbers.
-
-set relativenumber  " Show line numbers relative to current (vim 7.3 or higher).
-
-set showmatch       " When a bracket is inserted, briefly jump to the matching
-                    " one. The jump is only done if the match can be seen on the
-                    " screen. The time to show the match can be set with
-                    " 'matchtime'.
- 
-set hlsearch        " When there is a previous search pattern, highlight all
-                    " its matches.
- 
-set incsearch       " While typing a search command, show immediately where the
-                    " so far typed pattern matches.
- 
-set ignorecase      " Ignore case in search patterns.  
-                    " For shorthand, use :set ic and :set noic
- 
-set smartcase       " Override the 'ignorecase' option if the search pattern
-                    " contains upper case characters.
- 
-set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
-                    " and CTRL-U in Insert mode. This is a list of items,
-                    " separated by commas. Each item allows a way to backspace
-                    " over something.
- 
-
- 
-"set textwidth=79    " Maximum width of text that is being inserted. A longer
-                    " line will be broken after white space to get this width.
- 
-"set formatoptions=c,q,r,t " This is a sequence of letters which describes how
-                    " automatic formatting is to be done.
-                    "
-                    " letter    meaning when present in 'formatoptions'
-                    " ------    ---------------------------------------
-                    " c         Auto-wrap comments using textwidth, inserting
-                    "           the current comment leader automatically.
-                    " q         Allow formatting of comments with "gq".
-                    " r         Automatically insert the current comment leader
-                    "           after hitting <Enter> in Insert mode. 
-                    " t         Auto-wrap text using textwidth (does not apply
-                    "           to comments)
- 
-set ruler           " Show the line and column number of the cursor position,
-                    " separated by a comma.
- 
-set background=dark " When set to "dark", Vim will try to use colors that look
-                    " good on a dark background. When set to "light", Vim will
-                    " try to use colors that look good on a light background.
-                    " Any other value is illegal.
- 
-set mouse=a         " Enable the use of the mouse.
-
-set backupdir=~/.vim/backups " To prevent clutter, tell vim to use a back directory.
-
-set autoread        " Set to auto-read when a file is changed from outside
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git anyway...
-" set nobackup
-" set nowb
-" set noswapfile
-
-" "Persistent undo
-" set undodir=~/.vim_runtime/undodir
-" set undofile
- 
-filetype plugin indent on
-syntax on
-
-" to improve performance limit syntax highlighting to 200 chars per line
-set synmaxcol=512
-
-" To save your sessions, uncomment the following three lines.
-" set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
-" map <Leader>ss :mksession! ~/.vim/Session.vim <cr>
-" map <Leader>so :source ~/.vim/Session.vim <cr>
-
-
-" -----------------------
-" Colors and Highlighting
-" -----------------------
-" Various color schemes, only use one at a time:
-set t_Co=256		" tell vim that the terminal can handle 256 colors
-colorscheme jellybeans
-" colorscheme tomorrow-night-eighties
-
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-	syntax on
-	set hlsearch
-endif
-
-"" Make vim automatically set the title of screen windows to vim:<file>
-if $TERM=='screen'
-	exe "set title titlestring=vim:%f"
-	exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
-endif
-
-"if has("vms")
-"  set nobackup		" do not keep a backup file, use versions instead
-"else
-"  set backup		" keep a backup file
-"endif
-set backup
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-  set autoindent    " Copy indent from current line when starting a new line
-                    " (typing <CR> in Insert mode or when using the "o" or "O"
-                    " command).
-
-endif " has("autocmd")
-
-" -----------------------------
-" syntax enable "Enable syntax hl
-
-" " Set font
-"   set gfn=Monospace\ 10
-"   set shell=/bin/bash
-" 
-" if has("gui_running")
-"   set guioptions-=T
-"   set t_Co=256
-"   set background=dark
-"   colorscheme peaksea
-" else
-"   colorscheme zellner
-"   set background=dark
-" 
-" endif
-" 
-" set encoding=utf8
-" try
-"     lang en_US
-" catch
-" endtry
-" 
-" set ffs=unix,dos,mac "Default file types
-
-
-
-" ------------------
-" Keyboard Shortcuts
-" ------------------
-
-"" Uncomment below to remap keys for splitting windows
-"" Anywhere you see '<leader>', just type the comma
-"" For example:
-""   <leader>sh       - split and open a new window below current one
-""   <leader>swh      - split and open a new window below all windows
-""   CTRL+w {h,l,k,j} - move left, right, up, down
-""   CTRL+w {H,L,K,J} - move windows left, right, up, down
-"" Note: the standard h,j,k,l directions are used. 
-"" mappings to split window
-"nmap <leader>swh :topleft  vnew<CR>
-"nmap <leader>swl :botright vnew<CR>
-"nmap <leader>swk :topleft  new<CR>
-"nmap <leader>swj :botright new<CR>
-"
-"" mappings to split window and buffer
-"nmap <leader>sh :leftabove  vnew<CR>
-"nmap <leader>sl :rightbelow vnew<CR>
-"nmap <leader>sk :leftabove  new<CR>
-"nmap <leader>sj :rightbelow new<CR>
-
-let mapleader = "," 
-
-" show tabs and trailing spaces
-map <leader>l :set list!<CR>
-set lcs=tab:»\ ,trail:▫
-
-"" NERD Tree
-" map NERD Tree toggle to 'Z' (I use :wq)
-map <s-z> :NERDTreeToggle<CR>
-
-"" TComment
-" insert comment at beginning of line ignoring tab level
-let g:tcommentOptions = {'col': 1}
-" map comment toggle to 'Q'
-map <s-q> gc
-
-"" enable JSX in .js files (instead of just .jsx)
-let g:jsx_ext_required = 0
+" set to auto-read when a file is changed from outside
+set autoread
 
 " map 'U' to redo ('U' is "undo line", ctrl-r is redo)
 map <s-u> <C-r>
 
-"" tab completion
-" function! InsertTabWrapper()
-" 	let col = col('.') - 1
-" 	if !col || getline('.')[col - 1] !~ '\k'
-" 		return "\<tab>"
-" 	else
-" 		return "\<c-p>"
-" 	endif
-" endfunction
-" inoremap <expr> <tab> InsertTabWrapper()
-" inoremap <s-tab> <c-n>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                                                    PLUGINS                                                     """"""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" ----------------------------------------------------------
-" ------------------- End Settings -------------------------
-" ----------------------------------------------------------
+" The matchit plugin makes the % command work better, but it is not backwards
+" compatible.
+" The ! means the package won't be loaded right away but when plugins are
+" loaded during initialization.
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
+
+
+"""""""""""" Nerd Tree """"""""""""
+" https://github.com/scrooloose/nerdtree.git
+
+" map NERD Tree toggle to 'Z' (I use :wq)
+map <s-z> :NERDTreeToggle<CR>
+
+
+"""""""""""" Solarized """"""""""""
+" https://github.com/altercation/vim-colors-solarized.git
+
+set t_Co=256		" tell vim that the terminal can handle 256 colors
+syntax enable
+set background=dark
+colorscheme solarized
+
+
+"""""""""""" tcomment """"""""""""
+" https://github.com/tomtom/tcomment_vim.git
+
+" insert comment at beginning of line ignoring tab level
+let g:tcomment#options = {'col': 1}
+
+" stop adding that extra space
+autocmd VimEnter * call tcomment#type#Define('javascript', '//%s')
+autocmd VimEnter * call tcomment#type#Define('elixir', '#%s')
+
+" map comment toggle to 'Q'
+map <s-q> gc
+
+
+"""""""""""""" JSX """""""""""""
+" https://github.com/mxw/vim-jsx.git
+
+
+"""""""""""" Elixir """"""""""""
+" https://github.com/elixir-editors/vim-elixir
+
+
+""""""""""" Fugitive """""""""""
+" https://github.com/tpope/vim-fugitive.git
+
+
+""""""""""" Surround """""""""""
+" https://tpope.io/vim/surround.git
+
+
+""""""""""" Lightline """"""""""
+" https://github.com/itchyny/lightline.vim
+
+set laststatus=2
 
